@@ -1,0 +1,71 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body { 
+    position: relative;
+    padding: 60px 40px;
+}
+
+#products {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#products > div {
+    border: 2px solid rgba(216, 112, 147, 0.801);
+    padding: 20px 40px;
+    border-radius: 10px;
+}
+
+img {
+    height: 150px;
+}
+
+#basket {
+    position: absolute;
+    top: 0;
+    left: 300px;
+    right: 300px;
+    height: 100vh;
+    background-color: #fff;
+    box-shadow: 0 0 10px palevioletred;
+    display: none;
+    overflow-y: auto;
+    z-index: 1;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+button {
+    background-color: palevioletred;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.basket {
+    position: absolute; 
+    top: 10px;
+    right: 40px;
+    
+}
+
+h3 {
+    color: palevioletred;
+    margin: 10px 0;
+}
+
+.add_to_basket,
+.remove_product {
+    margin: 10px 0;
+}
+
+.close {
+    margin-bottom: 40px;
+}

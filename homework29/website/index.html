@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+
+    <title>WebSite</title>
+</head>
+
+<body>
+    <div class="flex-container">
+        <!-- Log In Form -->
+        <div id="login" class="flex-item">
+            <h2>Log In</h2>
+            <form>
+                <div class="input">
+                    <input type="email" placeholder="Email address" class="email">
+                    <em class="em1"></em>
+                </div>
+                <div class="input">
+                    <input type="password" placeholder="Password" class="password">
+                    <em class="em2"></em>
+                </div>
+                <div class="div1">
+                    <div>
+                        <input type="checkbox" id="remember_me">
+                        <label for="remember_me">Remember Me</label>
+                    </div>
+                    <div>
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                </div>
+                <button class="login_btn">Log In</button>
+                <div class="p2">
+                    <span>Don't have an account?</span>
+                    <a href="#" class="signup_form_link">SIGN UP HERE</a>
+                </div>
+            </form>
+        </div>
+        <!-- End Log In Form -->
+        
+        <!-- Sign Up Form -->
+        <div id="signup" class="flex-item">
+            <h2>Sign Up</h2>
+            <form id="form1">
+                <div class="input">
+                    <input type="text" placeholder="First Name" id="first_name">
+                    <em class="first_name_err"></em>
+                </div>
+                <div class="input">
+                    <input type="text" placeholder="Last Name" id="last_name">
+                    <em class="last_name_err"></em>
+                </div>
+                <div class="input">
+                    <input type="text" placeholder="Email address" id="email">
+                    <em class="email_err"></em>
+                </div>
+                <div class="input">
+                    <input type="password" placeholder="Password" id="password">
+                    <em class="password_err"></em>
+                </div>
+                <div class="input">
+                    <input type="password" placeholder="Re-Enter Password" id="password_repeat">
+                    <em class="password_repeat_err"></em>
+                </div>
+                <div class="gender">
+                    <label>
+                        <input type="radio" name="gender" id="female"> Female
+                    </label>
+                    <label>
+                        <input type="radio" name="gender" id="male"> Male
+                    </label><br>
+                    <em class="gender_err"></em>
+                </div>
+                <div class="p1">
+                    By clicking Sign Up, you agree to our 
+                    <a href="#">Terms</a>, 
+                    <a href="#">Privacy Policy</a> and 
+                    <a href="#">Cookies Policy</a>. 
+                    You may receive SMS Notifications from us and can opt out any time.
+                </div>
+                <button class="register_btn">Sign Up</button>
+                <div class="p2">
+                    <span>Have an account?</span>
+                    <a href="#" class="login_form_link">LOG IN HERE</a>
+                </div>
+            </form>
+        </div>
+        <!-- End Sign Up Form -->
+    </div>
+    
+
+    <div id="account">
+        <p class="p3">Welcome <span class="name"></span> </p>
+        <button class="close">Log Out</button>
+    </div>
+
+    <!-- Script -->
+    <script src="./js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 30</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #show_students {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 5px;
+            border-bottom: 1px solid;
+        }
+
+        #show_students > p {
+            margin: 5px;
+            border: 1px solid gray;
+            padding: 10px;
+        }
+
+        #persons_list {
+            margin: 10px 10px 0;
+            padding: 10px 20px;
+
+        }
+
+        .show_persons {
+            padding: 0 10px;
+            border-bottom: 1px solid;
+        }
+
+        .show_persons > p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Show Students -->
+    <div id="show_students"></div>
+
+    <!-- Sort -->
+    <select id="persons_list">
+        <option value="a_z">A - Z</option>
+        <option value="1_9">1 - 9</option>
+    </select>
+    <div class="show_persons"></div>
+
+    <script src="./homework30.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS DOM - Homework 4</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #parent {
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(250, 210, 217, 0.342);
+            position: relative;
+        }
+
+        .block {
+            width: 250px;
+            background-color: #1B1B1D;
+            color: #E0DEDF;
+            border-radius: 8px;
+            position: relative;
+            padding: 10px 0;
+            list-style-type: none;
+            display: none;
+            position: absolute;
+        }
+
+        li {
+            padding: 2px 20px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        li:hover {
+            background-color: rgba(128, 128, 128, 0.733);
+        }
+
+        span {
+            position: absolute;
+            right: 20px;
+        }
+
+        .border {
+            border-bottom: 1px solid #E0DEDF;
+        }
+
+        .active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="parent">
+        <ul class="block">
+            <li>Back <span>Alt+Left Arrow</span></li>
+            <li>Forward <span>Alt+Right Arrow</span></li>
+            <li class="border">Reload <span>Ctrl+R</span></li>
+            <li>Save as... <span>Ctrl+S</span></li>
+            <li>Print... <span>Ctrl+P</span></li>
+            <li>Cast...</li>
+            <li class="border">Search images with Google</li>
+            <li>Send to your devices</li>
+            <li class="border">Create QR Code for this page</li>
+            <li>Translate to English</li>
+            <li class="border">Open in reading mode</li>
+            <li>View page source <span>Ctrl+U</span></li>
+            <li>Inspect</li>
+        </ul>
+    </div>
+
+    <script>
+        let parent = document.getElementById("parent");
+        let block = document.getElementsByClassName("block")[0];
+
+        parent.addEventListener("contextmenu", e => {
+            e.preventDefault();
+            block.classList.add("active");
+
+            let left = e.pageX;
+            let top = e.pageY;
+
+            if (left + block.offsetWidth <= document.body.offsetWidth) {
+                block.style.left = left + "px";
+            } else {
+                block.style.left = (left - block.offsetWidth) + "px";
+            }
+
+            if (top + block.offsetHeight < document.body.offsetHeight) {
+                block.style.top = top + "px";
+            } else {
+                block.style.top = (top - block.offsetHeight) + "px";
+            }
+        });
+
+        parent.addEventListener("click", () => {
+            block.classList.remove("active");
+        });
+
+        block.addEventListener("contextmenu", e => {
+            e.stopPropagation();
+            e.preventDefault();
+        });
+
+        block.addEventListener("click", e => {
+            e.stopPropagation();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS DOM - Homework 2</title>
+
+    <style>
+        .traffic_light {
+            background-color: #252525;
+            width: 100px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .div1 {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 10px;
+            background-color: rgb(109, 107, 107);
+        }
+
+        .red { background-color: red; }
+        .yellow { background-color: yellow; }
+        .green { background-color: green; }
+    </style>
+</head>
+
+<body>
+    <div class="traffic_light">
+        <div class="div1"></div>
+        <div class="div1"></div>
+        <div class="div1"></div>
+    </div>
+
+    <script>
+        setInterval(() => {
+            let div1 = document.getElementsByClassName("div1")[0];
+            let div2 = document.getElementsByClassName("div1")[1];
+            let div3 = document.getElementsByClassName("div1")[2];
+            
+            setTimeout(() => {
+                div1.classList.add("red");
+                div2.classList.remove("yellow");
+                div3.classList.remove("green");
+            }, 1000);
+
+            setTimeout(() => {
+                div2.classList.add("yellow");
+                div1.classList.remove("red");
+                div3.classList.remove("green");
+            }, 2000);
+
+            setTimeout(() => {
+                div3.classList.add("green");
+                div1.classList.remove("red");
+                div2.classList.remove("yellow");
+            }, 3000);
+        }, 3000);
+    </script>
+</body>
+
+</html>

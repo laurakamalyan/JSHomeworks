@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS DOM - Homework 4</title>
+
+    <style>
+        #div {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .post {
+            width: 200px;
+            border: 2px solid palevioletred;
+            background-color: pink;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+        }
+
+        .post button {
+            border: none;
+            background-color: palevioletred;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div"></div>
+
+    <script>
+        let div = document.getElementById("div");
+        let posts = [
+            {
+                id: 1,
+                title: "JS",
+                body: "Language"
+            },
+            {
+                id: 2,
+                title: "ReactJS",
+                body: "Library"
+            },
+            {
+                id: 3,
+                title: "VueJS",
+                body: "Framework"
+            },
+            {
+                id: 4,
+                title: "PHP",
+                body: "Language"
+            },
+            {
+                id: 5,
+                title: "SQL",
+                body: "Query Language"
+            },
+            {
+                id: 6,
+                title: "JQuery",
+                body: "Library"
+            },
+            {
+                id: 7,
+                title: "MySql",
+                body: "Datebase Management System"
+            },
+            {
+                id: 8,
+                title: "CSS",
+                body: "Cascading Style Sheets"
+            },
+            {
+                id: 9,
+                title: "HTML",
+                body: "HyperText Markup Language"
+            },
+        ];
+
+        posts.forEach( post => {
+            let div_child = "";
+            div_child = `
+                <div class="post">
+                    <h2>${post.title}</h2>
+                    <p>${post.body}</p>
+                    <button onclick="removePost(${post.id})">Delete post</button>
+                </div>
+            `;
+            div.innerHTML += div_child;
+        });
+
+        function removePost(deleted_post_id) {
+            for (let i = 0; i < posts.length; i++) {
+                if (posts[i].id === deleted_post_id) {
+                    div.children[i].remove();
+                }                
+            }
+            posts = posts.filter(post => post.id !== deleted_post_id);
+        }
+
+    </script>
+</body>
+
+</html>

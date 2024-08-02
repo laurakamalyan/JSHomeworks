@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+</head>
+
+<body>
+    <select id="cities"></select>
+    <button>Show</button>
+    <p class="temp"></p>
+    
+    <script>
+        let show_temp = document.getElementsByClassName("temp")[0];
+        let btn = document.getElementsByTagName("button")[0];
+        let cities = document.getElementById("cities");
+        
+        function show(users) {
+            users.forEach(user => {
+                let city = document.createElement("option");
+                city.innerText = user.address.city;
+                cities.appendChild(city);
+            });
+        }
+
+        async function temperature(lat, lng) {
+            await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&APPID=f8ecd14f4515b8ee0fcb3bcdef8f9efe`)
+                .then(res => res.json())
+                .then(data => data.main.temp)
+                .then(temp => show_temp.innerText = temp)
+        }
+        
+        async function get_users(){
+            return await fetch("https://jsonplaceholder.typicode.com/users").then(res => res.json())
+        }
+        get_users().then(res => show(res));
+        
+
+        btn.addEventListener("click", () => {
+            let x = document.getElementById("cities").value;
+
+            get_users().then(res => {
+                res.forEach(user => {
+                    if (user.address.city === x) {
+                        temperature(user.address.geo.lat, user.address.geo.lng)
+                    }
+                })
+            });
+        })
+
+        
+    </script>
+</body>
+
+</html>

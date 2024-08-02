@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Times</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        #countries {
+            border: 2px solid;
+            border-radius: 5px;
+            padding: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-left: 50px;
+            margin-top: 20px;
+        }
+
+        #show {
+            margin-left: 50px;
+        }
+
+        #clock_container {
+            position: relative;
+            top: 10px;
+            left: 60px;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background-image: url("./clock.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        #hour, #minute, #second {
+            border: 1px solid black;
+            left: 50%;
+            position: absolute;
+            transform-origin: bottom;
+        }
+
+        #hour {
+            height: 20%;
+            border-width: 2px;
+            top: 30%;
+        }
+
+        #minute {
+            height: 30%;
+            top: 20%;
+        }
+
+        #second {
+            height: 40%;
+            border-color: red;
+            top: 10%;
+        }
+
+        #show {
+            height: 40px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <select id="countries">
+        <option selected disabled>Select Timezone</option>
+    </select>
+
+    <div id="show"></div>
+
+    <div id="clock_container">
+        <div id="hour"></div>
+        <div id="minute"></div>
+        <div id="second"></div>
+    </div>
+
+
+    <script>
+        let hour_div = document.getElementById("hour");
+        let minute_div = document.getElementById("minute");
+        let second_div = document.getElementById("second");
+
+        (async function get_countries() {
+            let countries = document.getElementById("countries");
+            try {
+                await fetch("http://worldtimeapi.org/api/timezone")
+                    .then(res => res.json())
+                    .then(data => {
+                        data.forEach(timezone => {
+                            let option = document.createElement("option");
+                            option.innerHTML = timezone;
+                            countries.append(option);
+                        });
+                    })
+            } catch (err) {
+                console.error(err.message);
+            }
+        })();
+
+        async function get_time(timezone) {
+            let show = document.getElementById("show");
+            let show_date = document.getElementById("date");
+            let show_time = document.getElementById("time");
+
+            let time_regexp = /\d{2}:\d{2}:\d{2}/g;
+
+            try {
+                await fetch(`http://worldtimeapi.org/api/timezone/${timezone}`)
+                .then(res => res.json())
+                .then(data => {
+                    let time = data.datetime.match(time_regexp).join().split(":");
+
+                    show.innerHTML = data.datetime;
+
+                    let hour = time[0];
+                    let minute = time[1];
+                    let second = time[2];
+
+                    hour_div.style.transform = `rotate(${ (360 * hour) / 12}deg)`;
+                    minute_div.style.transform = `rotate(${ (360 * minute) / 60}deg)`;
+                    second_div.style.transform = `rotate(${ (360 * second) / 60}deg)`;
+                    
+                })
+            } catch (err) {
+                console.error(err.message);
+            }
+        }
+
+        countries.addEventListener("change", e => get_time(e.target.value) );
+    </script>
+</body>
+
+</html>

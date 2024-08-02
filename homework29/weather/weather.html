@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+
+    <style>
+        #div1 {
+            display: flex;
+            padding: 20px;
+        }
+
+        #cities {
+            padding: 10px;
+            border: 2px solid;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        #cities > option {
+            padding: 10px;
+        }
+
+        p {
+            font-weight: 600;
+            margin-left: 20px;
+        }
+
+        #pic {
+            margin-left: 20px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1">
+        <select id="cities">
+            <option selected>Choose city</option>
+        </select>
+        <p class="temp"></p>
+    </div>
+    <div id="pic"></div>
+    
+    <script>
+        let show_temp = document.getElementsByClassName("temp")[0];
+        let cities = document.getElementById("cities");
+        let pic = document.getElementById("pic");
+        
+        function show(users) {
+            users.forEach(user => {
+                let city = document.createElement("option");
+                city.innerText = user.address.city;
+                cities.appendChild(city);
+            });
+        }
+
+        async function temperature(lat, lng) {
+            await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&APPID=f8ecd14f4515b8ee0fcb3bcdef8f9efe`)
+                .then(res => res.json())
+                .then(data => data)
+                .then(temp => {
+                    show_temp.innerText = "Temperature: " + temp.main.temp;
+                    let weather = temp.weather[0].main;
+                    if (weather === "Rain") pic.innerHTML = `${weather}<br> <img src = "./img/rain.jpg" width ="100">`;
+                    else if (weather === "Clouds") pic.innerHTML = `${weather}<br> <img src = "./img/clouds.jpg" width ="100">`;
+                    else if (weather === "Clear") pic.innerHTML = `${weather}<br> <img src = "./img/sun.png" width ="100">`;
+                })
+        }
+        
+        async function get_users(){
+            return await fetch("https://jsonplaceholder.typicode.com/users").then(res => res.json())
+        }
+        get_users().then(res => show(res));
+        
+        cities.addEventListener("change", e => {
+            let value = e.target.value;
+            get_users().then(res => {
+                res.forEach(user => {
+                    if (user.address.city === value) {
+                        temperature(user.address.geo.lat, user.address.geo.lng)
+                    } else {
+                        show_temp.innerText = "";
+                        pic.innerHTML = "";
+                    }
+                })
+            });
+        })
+
+        
+    </script>
+</body>
+
+</html>

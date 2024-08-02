@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Times</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #clock_container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            background-image: url("./clock.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            
+        }
+
+        #hour, #minute, #second {
+            border: 1px solid black;
+            left: 50%;
+            position: absolute;
+            transform-origin: bottom;
+        }
+
+        #hour {
+            height: 20%;
+            top: 30%;
+            border-width: 2px;
+            animation: rotate_arrow 43200s infinite linear;
+        }
+
+        #minute {
+            height: 30%;
+            top: 20%;
+            animation: rotate_arrow 3600s infinite linear;
+        }
+
+        #second {
+            height: 40%;
+            top: 10%;
+            border-color: red;
+            animation: rotate_arrow 60s infinite linear;
+        }
+
+        @keyframes rotate_arrow {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="clock_container">
+        <div id="hour"></div>
+        <div id="minute"></div>
+        <div id="second"></div>
+    </div>
+    
+</body>
+
+</html>

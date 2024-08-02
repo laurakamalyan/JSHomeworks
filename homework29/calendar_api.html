@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        select {
+            width: 100px;
+            border-radius: 8px;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <select id="days"></select>
+    <select id="month"></select>
+    <select id="year"></select>
+
+    <script>
+        let days_select = document.getElementById("days");
+        let month_select = document.getElementById("month");
+        let year_select = document.getElementById("year");
+
+        let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        let calendar_api = [];
+
+        for (let i = 1924; i <= 2014; i++) {
+            let month = [];
+
+            for (let j = 0; j < months.length; j++) {
+                let days = [];
+                let end = 31;
+
+                if (j === 3 || j === 5 || j === 8 || j === 10) {
+                    end = 30;
+                }
+
+                if (j === 1) {
+                    end = 28;
+                }
+
+                if (i % 4 === 0 && months[j] === "February") {
+                    end = 29;
+                }
+
+                for (let k = 1; k <= end; k++) {
+                    days.push(k);
+                }
+
+                let data = {
+                    month: months[j],
+                    day: days,
+                }
+
+                month.push(data);
+            }
+
+            let arr = {
+                year: i,
+                month: month
+            }
+
+            calendar_api.push(arr);
+        }
+
+        for (let i = 1; i <= 31; i++) {
+            let option = document.createElement("option");
+            option.innerText = i;
+            days_select.append(option);
+        }
+
+        for (let i = 0; i < months.length; i++) {
+            let option = document.createElement("option");
+            option.innerText = months[i];
+            month_select.append(option);
+        }
+
+        calendar_api.forEach((value, index, array) => {
+            let option = document.createElement("option");
+            option.innerText = value.year;
+            year_select.append(option);
+        });
+
+        let fill_day_select = (arr) => {
+            days_select.innerHTML = "";
+            for (let i = 0; i < arr.length; i++) {
+                let option = document.createElement("option");
+                option.innerText = arr[i];
+                days_select.append(option);
+            }
+        }
+
+        year_select.addEventListener("change", e => {
+            let value = +e.target.value;
+            let x = calendar_api.find(val => val.year === value);
+            let month = month_select.value;
+            let y = x.month.find(val => val.month === month);            
+            fill_day_select(y.day);
+        })
+
+        month_select.addEventListener("change", e => {
+            let value = e.target.value;
+            let year = +year_select.value;
+            let x = calendar_api.find(val => val.year === year);
+            let y = x.month.find(val => val.month === value);            
+            fill_day_select(y.day);
+        });
+
+    </script>
+</body>
+
+</html>

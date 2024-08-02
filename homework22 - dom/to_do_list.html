@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS DOM - Homework 4 - To Do List</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #parent {
+            width: 500px;
+            margin-left: 20px;
+        }
+
+        .text_input {
+            width: 350px;
+            margin-left: 50px;
+            padding: 15px 0;
+            border: 2px solid;
+            margin-top: 20px;
+            border-radius: 3px;
+        }
+
+        .item {
+            border: 2px solid #1A5F17;
+            padding: 15px 0;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 15px;
+            background-color: #1A5F17;
+            color: #fff;
+            border: 1px solid #1A5F17;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="parent">
+        <input type="text" id="input1" placeholder="What needs to be done" class="text_input">
+        <button class="btn">Clear</button>
+    </div>
+
+    <script>
+        // Ստեղծել input,որտեղ պետք է մուտքագրվեն ձեր օրվա կատարվելիք 
+        // գործողությունները և այն պետք է հաստատվի միայն enter ստեղնը սեղմելուց
+        // հետո։ Այնուհետև ներքևում ստեղծել div,որը կպարունակի կատարվելիք մեկ
+        // գործողություն։Դաշտը կպարունակի նաև checkbox,որին սեղմելիս div-ի
+        // պարունակույթան վրա գիծ կքաշվի։
+
+        let input = document.getElementsByClassName("text_input")[0];
+        let parent_div = document.getElementById("parent");
+        let clear_button = document.getElementsByClassName("btn")[0];
+
+        input.addEventListener("keyup", e => {            
+            if (e.target.value !== "" && e.keyCode === 13) {
+                let div = document.createElement("div");
+                div.classList.add("item");
+
+                let checkbox = document.createElement("input");
+                checkbox.setAttribute("type", "checkbox");
+                checkbox.classList.add("checkbox");
+                
+                let label = document.createElement("label");
+                label.innerText = e.target.value;
+                label.prepend(checkbox);
+
+                div.append(label);                
+                parent_div.appendChild(div);     
+                
+                e.target.value = "";
+                
+                checkbox.addEventListener("click", () => {
+                    if (checkbox.checked) label.style.textDecoration = "line-through";
+                    else label.style.textDecoration = "none";
+                });
+            }
+        });
+
+        clear_button.addEventListener("click", function() {
+            let label = document.getElementsByTagName("label");
+            let checkbox = document.getElementsByClassName("checkbox");
+            for (let i = 0; i < label.length; i++) {
+                if (checkbox[i].checked) {
+                    checkbox[i].checked = false;
+                    label[i].style.textDecoration = "none";
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

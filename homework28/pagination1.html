@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagination</title>
+</head>
+<body>
+    <button class="prev">Prev</button>
+    <button class="next">Next</button>
+    <div id="posts"></div>
+    
+    <script>
+        async function posts(limit, page) {
+            let url = `https://jsonplaceholder.typicode.com/posts?_limit=${limit}&_page=${page}`;
+            return await fetch(url) 
+            .then(res => res.json())
+            .then(data => {
+                data.forEach(post => {
+                    posts_div.innerHTML += `
+                        <div>
+                            <p>${post.id}</p>
+                            <h3>${post.title}</h3>
+                            <p>${post.body}</p>
+                            <hr>
+                        </div>
+                    `;
+                })
+            })
+        }
+        
+        async function posts_count(limit, page) {
+            let count = 0;
+            await fetch("https://jsonplaceholder.typicode.com/posts") 
+            .then(res => res.json())
+            .then(data => count = data.length);
+            return count;
+        }
+
+        let limit = 10;
+        let page = 1;
+
+        let posts_div = document.getElementById("posts");
+
+        posts(limit, page);
+
+        let next = document.getElementsByClassName("next")[0];
+        let prev = document.getElementsByClassName("prev")[0];
+
+        next.addEventListener("click", () => {
+            posts_count().then(res => {
+                if (page === res/limit) return;
+                else {
+                    page++;
+                    posts_div.innerHTML = "";
+                    posts(limit, page);
+                }
+            });
+        });
+
+        prev.addEventListener("click", () => {
+            if (page === 1) return;
+            page--;
+            posts_div.innerHTML = "";
+            posts(limit, page);
+        });
+
+    </script>
+</body>
+</html>

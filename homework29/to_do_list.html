@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS DOM - Homework 4 - To Do List</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #parent,
+        #list {
+            width: 600px;
+            margin-left: 20px;
+        }
+
+        #input1 {
+            width: 350px;
+            margin-left: 50px;
+            padding: 15px 0;
+            border: 2px solid;
+            margin-top: 20px;
+            border-radius: 3px;
+        }
+
+        .item {
+            border: 2px solid #1A5F17;
+            padding: 15px 0;
+            margin-top: 10px;
+        }
+
+        button {
+            border: none;
+            background-color: #1A5F17;
+            color: #fff;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        #parent button {
+            padding: 15px;
+        }
+
+        button:active {
+            transform: scale(0.9);
+        }
+
+        #list > div {
+            position: relative;
+        }
+
+        #list > div > button {
+            padding: 5px 10px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="parent">
+        <input type="text" id="input1" placeholder="What needs to be done">
+        <button class="btn">Clear</button>
+        <button class="delete">Delete</button>
+    </div>
+    <div id="list"></div>
+
+    <script>
+        let input = document.getElementById("input1");
+        let parent_div = document.getElementById("parent");
+        let clear_button = document.getElementsByClassName("btn")[0];
+        let delete_button = document.getElementsByClassName("delete")[0];
+        let list = document.getElementById("list");
+
+        let data = [];
+        if (JSON.parse(localStorage.getItem("data"))) {
+            data = JSON.parse(localStorage.getItem("data"));
+            data.forEach(d => {
+                list.innerHTML += create_div( d );
+            })
+        }
+
+        function create_div(todo) {
+            let div = "";
+            
+            if (todo.isComplated) {
+                div = `
+                    <div class="item">
+                        <label onclick="checked(this, ${todo.id})" style="text-decoration: line-through">
+                            <input type="checkbox" class="checkbox" checked> ${todo.text}
+                        </label>
+                        <button onclick="delete_item(${todo.id})">x</button>
+                    </div>
+                `;
+            } else {
+                div = `
+                    <div class="item">
+                        <label onclick="checked(this, ${todo.id})">
+                            <input type="checkbox" class="checkbox"> ${todo.text}
+                        </label>
+                    </div>
+                `;
+            }
+            return div;
+        }
+
+        input.addEventListener("keyup", e => {
+            if (e.target.value !== "" && e.keyCode === 13) {
+
+                let todo = {
+                    id: Date.now(),
+                    text: e.target.value,
+                    isComplated: false
+                }
+                data.push(todo);
+
+                localStorage.setItem("data", JSON.stringify(data));
+
+                list.innerHTML += create_div(todo);
+
+                e.target.value = "";
+            }
+        });
+
+        function checked(element, id) {  
+            let elem = data.find(d => d.id === id);
+
+            if (element.children[0].checked) {
+                element.style.textDecoration = "line-through";
+                elem.isComplated = true;
+            } else {
+                element.style.textDecoration = "none";
+                elem.isComplated = false;
+            }
+
+            localStorage.setItem("data", JSON.stringify(data));
+            location.reload();
+        }
+
+        clear_button.addEventListener("click", function () {
+            let label = document.getElementsByTagName("label");
+            let checkbox = document.getElementsByClassName("checkbox");
+            for (let i = 0; i < label.length; i++) {
+                if (checkbox[i].checked) {
+                    checkbox[i].checked = false;
+                    label[i].style.textDecoration = "none";
+                }
+            }
+
+            data.forEach(d => {
+                if (d.isComplated) d.isComplated = false;
+            })
+            localStorage.setItem("data", JSON.stringify(data));
+            location.reload();
+        });
+
+        delete_button.addEventListener("click", e => { 
+            let r = data.every(d => d.isComplated === true);
+            if (r) {
+                // localStorage.removeItem("data");
+                data = [];
+                localStorage.setItem("data", JSON.stringify(data));
+                list.innerHTML = "";
+            }
+        });
+        
+        function delete_item(id) {
+            let item = data.find((value, index) => {
+                if (value.id === id) {
+                    data.splice(index, 1);
+                    return value;
+                }
+            });
+            localStorage.setItem("data", JSON.stringify(data));
+            location.reload();
+        }
+    </script>
+</body>
+
+</html>

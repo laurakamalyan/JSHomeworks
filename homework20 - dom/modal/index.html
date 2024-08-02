@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <title>JS DOM - Homework 2</title>
+</head>
+
+<body>
+    <div class="flex-container">
+        <div class="flex-item">
+            <img src="./logo.png" alt="logo" class="logo">
+            <p>Connect with friends and the world around you on Facebook.</p>
+        </div>
+        <div class="flex-item">
+            <div class="div1">
+                <form>
+                    <p><input type="email" placeholder="Email or phone number" class="input"></p>
+                    <p><input type="password" placeholder="Password" class="input"></p>
+                    <button class="log_in">Log In</button>
+                    <a href="#">Forgot password?</a>
+                </form>
+                <hr>
+                <button class="modal_btn">Create new account</button>
+            </div>
+            <p class="p1">
+                <a href="#" class="a1">Create a Page</a>
+                for a celebrity, brand or business.
+            </p>
+        </div>
+    </div>
+
+    <div class="modal">
+        <div class="sign_up">
+            <div class="top">
+                <h2>Sign Up</h2>
+                <p>It's quick and easy.</p>
+                <div class="close">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="bottom">
+                <form>
+                    <p>
+                        <input type="email" placeholder="Mobile number or email" class="input2">
+                    </p>
+                    <p>
+                        <input type="password" placeholder="New password" class="input2">
+                    </p>
+                    <div>
+                        <span title="Click for more information">Birthday 
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        </span><br>
+                        <select>
+                            <option>January</option>
+                            <option>February</option>
+                            <option>March</option>
+                            <option>April</option>
+                            <option>May</option>
+                            <option selected>June</option>
+                            <option>July</option>
+                            <option>August</option>
+                            <option>September</option>
+                            <option>October</option>
+                            <option>November</option>
+                            <option>December</option>
+                        </select>
+                        <select>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option>15</option>
+                            <option>16</option>
+                            <option>17</option>
+                            <option>18</option>
+                            <option>19</option>
+                            <option>20</option>
+                            <option>21</option>
+                            <option>22</option>
+                            <option>23</option>
+                            <option>24</option>
+                            <option selected>25</option>
+                            <option>26</option>
+                            <option>27</option>
+                            <option>28</option>
+                            <option>29</option>
+                            <option>30</option>
+                            <option>31</option>
+                        </select>
+                        <select>
+                            <option>1990</option>
+                            <option>1991</option>
+                            <option>1992</option>
+                            <option>1993</option>
+                            <option>1994</option>
+                            <option>1995</option>
+                            <option>1996</option>
+                            <option>1997</option>
+                            <option>1998</option>
+                            <option>1999</option>
+                            <option>2000</option>
+                        </select>
+                    </div>
+                    <div class="name">
+                        <input type="text" placeholder="First name">
+                        <input type="text" placeholder="Last name">
+                    </div>
+                    <div>
+                        <span title="Click for more information">Gender 
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        </span><br>
+                        <div class="gender_flex">
+                            <p class="gender">
+                                <label for="female">
+                                    Female <input type="radio" id="female" name="gender"> 
+                                </label> 
+                            </p>                       
+                            <p class="gender">
+                                <label for="male">
+                                    Male <input type="radio" id="male" name="gender"> 
+                                </label>
+                            </p>                        
+                            <p class="gender">
+                                <label for="custom">
+                                    Custom <input type="radio" id="custom" name="gender"> 
+                                </label>
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text">
+                        People who use our service may have uploaded your contact information to Facebook.
+                        <a href="#">Learn more.</a>
+                    </p>
+                    <p class="text">
+                        By clicking Sign Up, you agree to our 
+                        <a href="#">Terms</a>, 
+                        <a href="#">Privacy Policy</a> and 
+                        <a href="#">Cookies Policy</a>. 
+                        You may receive SMS Notifications from us and can opt out 
+                        <a href="#">any time</a>.
+                    </p>
+                    <div class="btn">
+                        <button type="button" class="sign_up_btn">Sign Up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>

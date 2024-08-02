@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation</title>
+    <style>
+        em {color: red;}
+    </style>
+</head>
+
+<body>
+    <p>
+        <input type="text" placeholder="First Name" id="first_name">
+        <em class="first_name_err"></em>
+    </p>
+
+    <p>
+        <input type="text" placeholder="Last Name" id="last_name">
+        <em class="last_name_err"></em>
+    </p>
+
+    <p>
+        <input type="text" placeholder="Email" id="email">
+        <em class="email_err"></em>
+    </p>
+
+    <p>
+        <input type="text" placeholder="+(012)34-56-78-90" id="tel">
+        <em class="tel_err"></em>
+    </p>
+
+    <p>
+        <input type="password" placeholder="Password" id="password">
+        <em class="password_err"></em>
+    </p>
+
+    <p>
+        <input type="password" placeholder="Re-Enter Password" id="password_repeat">
+        <em class="password_repeat_err"></em>
+    </p>
+
+    <p>
+        <label>
+            <input type="radio" name="gender" id="female"> Female
+        </label>
+        <label>
+            <input type="radio" name="gender" id="male"> Male
+        </label>
+        <em class="gender_err"></em>
+    </p>
+
+    <button>Click</button>
+
+    <script>
+        let btn = document.getElementsByTagName("button")[0];
+
+        let first_name_err = document.getElementsByClassName("first_name_err")[0];
+        let last_name_err = document.getElementsByClassName("last_name_err")[0];
+        let email_err = document.getElementsByClassName("email_err")[0];
+        let tel_err = document.getElementsByClassName("tel_err")[0];
+        let password_err = document.getElementsByClassName("password_err")[0];
+        let password_repeat_err = document.getElementsByClassName("password_repeat_err")[0];
+        let gender_err = document.getElementsByClassName("gender_err")[0];
+        
+
+        let name_regexp = /^[a-zA-Z]+$/g; // only letters
+        // let email_regexp = /^[a-zA-Z0-9]+@[a-z]+[.][a-z]+$/g; // dffhjhfj@jhh.jdidi
+        let email_regexp = /^\w+@[a-z]+[.][a-z]+$/g; // dffhjhfj@jhh.jdidi
+        let tel_regexp = /^\+?\(\d{3}\)\d{2}-\d{2}-\d{2}-\d{2}/g; // +(012)34-56-78-90
+
+        function validation(field_name, error_field, error_message, regexp) {
+            if (field_name !== "") {
+                if (!field_name.match(regexp)) {
+                    error_field.innerText = error_message;
+                    return;
+                } else {
+                    error_field.innerText = "";
+                }
+            } else {
+                error_field.innerText = "Field cannot be empty!!";
+            }
+        }
+
+        btn.addEventListener("click", () => {
+            let first_name = document.getElementById("first_name").value;
+            let last_name = document.getElementById("last_name").value;
+            let email = document.getElementById("email").value;
+            let tel = document.getElementById("tel").value;
+            let password = document.getElementById("password").value;
+            let password_repeat = document.getElementById("password_repeat").value;
+            let male = document.getElementById("male").checked;
+            let female = document.getElementById("female").checked;
+
+            validation(first_name, first_name_err, "First name can contain only letters!!", name_regexp);
+            validation(last_name, last_name_err, "Last name can contain only letters!!", name_regexp);
+            validation(email, email_err, "Incorrect email address!!", email_regexp);
+            validation(tel, tel_err, "Incorrect telephone input!!", tel_regexp);
+
+            if (password !== "") {
+                if (password.length < 8) {
+                    password_err.innerText = "Password must contain a minimum of 8 characters!!";
+                    return;
+                } else if (!/[a-zA-Z]/g.test(password) || !/\d/g.test(password) || !/_/g.test(password)) {
+                    password_err.innerText = "Password must contain characters, numbers and upper case letter!!";
+                    return;
+                } else {
+                    password_err.innerText = "";
+                }
+            } else {
+                password_err.innerText = "Field cannot be empty!!";
+            }
+
+            if (password_repeat !== "") {
+                if (password_repeat !== password) {
+                    password_repeat_err.innerText = "Passwords do not match!!";
+                    return;
+                } else {
+                    password_repeat_err.innerText = "";
+                }
+            } else {
+                password_repeat_err.innerText = "Field cannot be empty!!";
+            }
+
+            if (!male && !female) {
+                gender_err.innerText = "Choose gender!!";
+                return;
+            } else {
+                gender_err.innerText = "";
+            }
+
+
+        });
+
+    </script>
+</body>
+
+</html>

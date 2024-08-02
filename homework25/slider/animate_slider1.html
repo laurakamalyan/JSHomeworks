@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Slider 2</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #slider_container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .div1 {
+            border: 2px solid palevioletred;
+            overflow: hidden;
+            margin: 50px 20px;
+            width: 600px;
+        }
+
+        #slider {
+            width: 600px;
+            display: flex;
+            position: relative;
+            left: 0;
+            transition: 2s;
+        }
+
+        img {
+            width: 200px;
+        }
+
+        .left_arrow,
+        .right_arrow {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background-color: palevioletred;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="slider_container">
+        <button class="left_arrow">
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+        </button>
+        <div class="div1">
+            <div id="slider">
+                <img src="./img/1.jpg" alt="Picture">
+                <img src="./img/2.jpg" alt="Picture">
+                <img src="./img/3.jpg" alt="Picture">
+                <img src="./img/4.jpg" alt="Picture">
+                <img src="./img/5.jpg" alt="Picture">
+                <img src="./img/6.jpg" alt="Picture">
+                <img src="./img/7.jpg" alt="Picture">
+                <img src="./img/8.jpg" alt="Picture">
+            </div>
+        </div>
+        <button class="right_arrow">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <script>
+        let previous_btn = document.getElementsByClassName("left_arrow")[0];
+        let next_btn = document.getElementsByClassName("right_arrow")[0];
+        let slider = document.getElementById("slider");
+        let position = 0;
+        const step = 200;
+
+        let imgs = document.getElementsByTagName("img");
+        let img_width = imgs[0].offsetWidth;
+        let imgs_count = imgs.length;
+        let imgs_show = slider.offsetWidth / img_width;
+        let imgs_hide = imgs_count - imgs_show;
+
+        function move(btn) {
+            if (btn === "prev") {
+                if (position === -imgs_hide * img_width) position = 0;
+                else position -= step;
+            }
+            else if (btn === "next") {
+                if (position === 0) position = -imgs_hide * img_width;
+                else position += step;
+            }              
+
+            slider.style.left = position + "px";
+        }
+
+        previous_btn.addEventListener("click", () => move("prev"));
+        next_btn.addEventListener("click", () => move("next"));
+    </script>
+</body>
+
+</html>
