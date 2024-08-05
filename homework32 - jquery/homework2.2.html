@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jquery - homework 2</title>
+</head>
+
+<body>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        // Լինի էջ, որտեղ սկզբում ոչինչ չպետք է լինի, այդ էջում e տառը 
+        // սեղմելիս հայտնվի երկիր մոլորակի նկարը, s տառը սեղմելիս հատնվի 
+        // saturn-ի նկարը n տառը սեղմելիս՝ neptun - ի նկարը u տառը սեղմելիս՝ 
+        // uran-ի y տառը սեղմելիս՝ yupiter-ի:
+
+        $(() => {
+            $("body").keydown(e => {
+                if (e.key === "e") {
+                    $("body").html("<img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpkJCJTuFQv_zuPZEtnyRW7IPLpzKodETlS5iTTwhv04uZzR9ePhIainUQkkgipara1VI&usqp=CAU'>")
+                } else if (e.key === "s") {
+                    $("body").html("<img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7-_zZmR8I8WC14uzvnFpya8YOJiI3eEfSQA&s'>");
+                } else if (e.key === "n") {
+                    $("body").html("<img src='https://cdn.mos.cms.futurecdn.net/NrpYyu3sEmB5pcry9rWMk8-320-80.jpg'>");
+                } else if (e.key === "u") {
+                    $("body").html("<img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMSVuzFU_e6ceFkVVOOpT9SNpztWikWNZimA&s'>");
+                } else if (e.key === "y") {
+                    $("body").html("<img src='https://168.am/wp-content/uploads/2015/05/Yupiter1.jpg'>");
+                }
+                
+            });
+        });
+    </script>
+</body>
+
+</html>
